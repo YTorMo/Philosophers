@@ -4,3 +4,4 @@
 example.c
 /test
 /test_2
+*.o
