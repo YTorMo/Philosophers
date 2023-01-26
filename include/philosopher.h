@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:53:45 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/01/25 18:03:34 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/01/26 11:33:55 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct s_prg_args
 {
 	int				n_philos;
+	int				*forks;
 	int				t_t_d;
 	int				t_t_e;
 	int				t_t_s;
@@ -36,9 +37,9 @@ typedef struct s_philo
 	int				id;
 	int				fork;
 	t_prg_args		*args;
-	pthread_mutex_t	*forks_locker;
 	pthread_t		*thr_p;
 	unsigned long	actual_time;
+	pthread_mutex_t	forks_locker;
 }t_philo;
 
 typedef struct s_main_program
@@ -49,9 +50,9 @@ typedef struct s_main_program
 
 int				ft_atoi(char *str);
 void			ft_args_init(t_prg_args	*args, char **av);
-int				init_lockers(t_prg *prg);
+void			init_lockers(t_prg *prg);
 void			ft_philos_init(t_philo *philos, t_prg_args	*args,
-					pthread_mutex_t	*mute);
+					pthread_mutex_t	fork_locker);
 unsigned long	ft_elapse_time(t_philo	*philos);
 unsigned long	ft_actual_time(void);
 void			*ft_philos_task_manager(void *p);

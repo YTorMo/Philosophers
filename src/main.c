@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:54:00 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/01/25 17:23:32 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:12:38 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,14 @@ int	main(int ac, char **av)
 	if (!prg)
 		return (0);
 	ft_prg_init(prg, av);
-	printf("	%lums\n", ft_actual_time());
+	i = -1;
+	while(++i < prg->args->n_philos)
+		if(pthread_create(&thr[i], NULL, &ft_philos_routine, (void*)prg->philo))
+			return (printf("Error creating threads."));
+	i = -1;
+	while(++i < prg->args->n_philos)
+		if(pthread_join(&thr[i], NULL))
+			return (printf("Error ending threads."));
 	return (0);
 }
 
@@ -84,15 +91,16 @@ void	*ft_philos_routine(void *p)
 
 	philo = (t_philo *)p;
 	//Comer y pillar tenedores
+	printf("LLEGA HASTA AQUI 	PRINCIPAL!!!!!!!!!!\n");
 	printf("%lums	%d	has taken a fork.\n", ft_elapse_time(philo), philo->id);
-	printf("%lums	%d	has taken a fork.\n", ft_elapse_time(philo), philo->id);
-	printf("%lums	%d	is eating.\n", ft_elapse_time(philo), philo->id);
+/* 	printf("%lums	%d	has taken a fork.\n", ft_elapse_time(philo), philo->id);
+	printf("%lums	%d	is eating.\n", ft_elapse_time(philo), philo->id); */
 		//Falta incluir el número de veces que comen los jodios.
-	usleep(philo->args->t_t_e * 1000);
+/* 	usleep(philo->args->t_t_e * 1000); */
 	//Dormir
-	printf("%lums	%d	is sleeping.\n", ft_elapse_time(philo), philo->id);
-	usleep(philo->args->t_t_s * 1000);
+/* 	printf("%lums	%d	is sleeping.\n", ft_elapse_time(philo), philo->id);
+	usleep(philo->args->t_t_s * 1000); */
 	//Pensar
-	printf("%lums	%d	is thinking.\n", ft_elapse_time(philo), philo->id);
+/* 	printf("%lums	%d	is thinking.\n", ft_elapse_time(philo), philo->id); */
 	return (0);
 }

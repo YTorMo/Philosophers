@@ -5,3 +5,4 @@ example.c
 /test
 /test_2
 *.o
+/test_t
