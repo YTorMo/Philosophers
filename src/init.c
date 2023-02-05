@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
+/*   By: ytoro-mo <ytoro-mo@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:32:04 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/01/26 12:10:58 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/05 18:00:23 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_prg_init(t_prg *prg, char **av)
 		return (printf("Error init philos.\n"));
 	prg->philo = philos;
 	init_lockers(prg);
-	printf("LLEGA HASTA AQUI	1!!!!!!!!!!\n");
 }
 
 void	ft_args_init(t_prg_args	*args, char **av)
@@ -36,12 +35,6 @@ void	ft_args_init(t_prg_args	*args, char **av)
 	int	i;
 
 	args->n_philos = ft_atoi(av[1]);
-	args->forks = malloc(sizeof(int) * args->n_philos);
-	if (!args->forks)
-		return ;
-	i = -1;
-	while (++i < args->n_philos)
-		args->forks[i] = 1;
 	args->t_t_d = ft_atoi(av[2]);
 	args->t_t_e = ft_atoi(av[3]);
 	args->t_t_s = ft_atoi(av[4]);
@@ -50,22 +43,24 @@ void	ft_args_init(t_prg_args	*args, char **av)
 	else
 		args->n_t_m_e = -1;
 	args->death = 0;
-	printf("LLEGA HASTA AQUI	2!!!!!!!!!!\n");
 }
 
 //No more data race. =D
 void	init_lockers(t_prg *prg)
 {
-	pthread_mutex_t	fork_locker;
+	pthread_mutex_t	*fork_locker;
+	int i;
 
-	if (pthread_mutex_init(&fork_locker, NULL))
-		return ;
+    fork_locker = malloc(sizeof(pthread_mutex_t) * prg->args->n_philos);
+	i = -1;
+	while (++i < prg->args->n_philos)
+		if (pthread_mutex_init(&fork_locker[i], NULL))
+			return ;
 	ft_philos_init(prg->philo, prg->args, fork_locker);
-	printf("LLEGA HASTA AQUI	3!!!!!!!!!!\n");
 }
 
 void	ft_philos_init(t_philo *philos, t_prg_args *args,
-	pthread_mutex_t	fork_locker)
+	pthread_mutex_t	*fork_locker)
 {
 	int	i;
 
@@ -78,6 +73,5 @@ void	ft_philos_init(t_philo *philos, t_prg_args *args,
 		philos[i].forks_locker = fork_locker;
 		philos[i].actual_time = ft_actual_time();
 	}
-	printf("LLEGA HASTA AQUI	4!!!!!!!!!!\n");
 }
 		//printf("LLEGA HASTA AQUI!!!!!!!!!!\n");
