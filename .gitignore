@@ -6,3 +6,4 @@ example.c
 /test_2
 *.o
 /test_t
+/test_time

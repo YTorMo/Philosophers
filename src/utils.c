@@ -6,7 +6,7 @@
 /*   By: ytoro-mo <ytoro-mo@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:27:05 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/05 18:04:40 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:55:25 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ unsigned long	ft_elapse_time(t_philo	*philos)
 {
 	unsigned long	ret;
 
-	ret = ft_actual_time() - philos->args->elapse_time;
+	ret = ft_actual_time() - philos->actual_time;
 	return (ret);
 }
 
