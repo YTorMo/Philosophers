@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytoro-mo <ytoro-mo@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:53:45 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/05 18:00:29 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:40:35 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 	t_prg_args		*args;
 	pthread_t		*thr_p;
 	unsigned long	actual_time;
+	unsigned long	last_meal;
 	pthread_mutex_t	*forks_locker;
 }t_philo;
 
@@ -54,8 +55,11 @@ void			ft_philos_init(t_philo *philos, t_prg_args	*args,
 					pthread_mutex_t	*fork_locker);
 unsigned long	ft_elapse_time(t_philo	*philos);
 unsigned long	ft_actual_time(void);
-void			*ft_philos_task_manager(void *p);
 void			*ft_philos_routine(void *p);
+int				ft_philos_meal(t_philo *philo);
+int				ft_philos_sleep(t_philo *philo);
+int				ft_philos_think(t_philo *philo);
+int				ft_philos_death(t_philo	*philo);
 int				ft_philos_ate(t_prg *prg);
 int				ft_prg_init(t_prg *prg, char **av);
 

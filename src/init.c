@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytoro-mo <ytoro-mo@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:32:04 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/05 18:00:23 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:47:36 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	ft_args_init(t_prg_args	*args, char **av)
 void	init_lockers(t_prg *prg)
 {
 	pthread_mutex_t	*fork_locker;
-	int i;
+	int				i;
 
-    fork_locker = malloc(sizeof(pthread_mutex_t) * prg->args->n_philos);
+	fork_locker = malloc(sizeof(pthread_mutex_t) * prg->args->n_philos);
 	i = -1;
 	while (++i < prg->args->n_philos)
 		if (pthread_mutex_init(&fork_locker[i], NULL))
@@ -72,6 +72,7 @@ void	ft_philos_init(t_philo *philos, t_prg_args *args,
 		philos[i].args = args;
 		philos[i].forks_locker = fork_locker;
 		philos[i].actual_time = ft_actual_time();
+		philos[i].last_meal = ft_actual_time();
 	}
 }
 		//printf("LLEGA HASTA AQUI!!!!!!!!!!\n");

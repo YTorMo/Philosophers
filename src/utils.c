@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ytoro-mo <ytoro-mo@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:27:05 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/05 19:55:25 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:31:17 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ int	ft_atoi(char *str)
 	}
 	return (s * n);
 }
+
+int	ft_philos_death(t_philo	*philo)
+{
+	if (ft_actual_time() - philo->last_meal >= philo->args->t_t_d)
+		return (1);
+	return (0);
+}
+//printf("VALOR HATA MUERTE DE %i :		%lu\n", philo->id, ft_actual_time() - philo->last_meal);
 
 /* int	ft_philos_ate(t_prg *prg)
 {
