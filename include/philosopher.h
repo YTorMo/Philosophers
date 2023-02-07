@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:53:45 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/06 15:40:35 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:21:25 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philo
 	int				fork;
 	t_prg_args		*args;
 	pthread_t		*thr_p;
-	unsigned long	actual_time;
+	unsigned long	init_time;
 	unsigned long	last_meal;
 	pthread_mutex_t	*forks_locker;
 }t_philo;
@@ -62,5 +62,6 @@ int				ft_philos_think(t_philo *philo);
 int				ft_philos_death(t_philo	*philo);
 int				ft_philos_ate(t_prg *prg);
 int				ft_prg_init(t_prg *prg, char **av);
+void			ft_is_dead(t_philo *philo);
 
 #endif

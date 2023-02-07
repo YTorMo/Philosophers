@@ -6,7 +6,7 @@
 #    By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 08:56:23 by ytoro-mo          #+#    #+#              #
-#    Updated: 2022/09/19 10:20:34 by ytoro-mo         ###   ########.fr        #
+#    Updated: 2023/02/07 12:37:55 by ytoro-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS	= -w
 USER	= ytoro-mo
 
 HEADERS	= -I ./include
-SRCS	= $(shell find ./src -iname "*.c")
+SRCS	= src/init.c src/main.c src/utils.c
+#SRCS	= $(shell find ./src -iname "*.c")
 OBJS	= ${SRCS:.c=.o}
 
 

@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:32:04 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/06 15:47:36 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:21:35 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_philos_init(t_philo *philos, t_prg_args *args,
 		philos[i].id = i + 1;
 		philos[i].args = args;
 		philos[i].forks_locker = fork_locker;
-		philos[i].actual_time = ft_actual_time();
+		philos[i].init_time = ft_actual_time();
 		philos[i].last_meal = ft_actual_time();
 	}
 }

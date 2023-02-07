@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:27:05 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/06 17:31:17 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:27:16 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ unsigned long	ft_elapse_time(t_philo	*philos)
 {
 	unsigned long	ret;
 
-	ret = ft_actual_time() - philos->actual_time;
+	ret = ft_actual_time() - philos->init_time;
 	return (ret);
 }
 
@@ -54,14 +54,25 @@ int	ft_atoi(char *str)
 	return (s * n);
 }
 
-int	ft_philos_death(t_philo	*philo)
+void	ft_is_dead(t_philo *philo)
 {
-	if (ft_actual_time() - philo->last_meal >= philo->args->t_t_d)
-		return (1);
-	return (0);
-}
-//printf("VALOR HATA MUERTE DE %i :		%lu\n", philo->id, ft_actual_time() - philo->last_meal);
+	int	i;
 
+	i = 0;
+	while (1)
+	{
+		if (ft_actual_time() - philo[i].last_meal >= philo->args->t_t_d)
+		{
+			printf("%lums %i died.\n", ft_elapse_time(&philo[i]), philo[i].id);
+			return ;
+		}
+		i = (i + 1) % philo->args->n_philos;
+		usleep(100);
+	}
+}
+
+//printf("%lums ultima comida de %i.\n", ft_actual_time() - philo[i].last_meal,
+//i + 1);
 /* int	ft_philos_ate(t_prg *prg)
 {
 	int		i;
