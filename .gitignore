@@ -8,3 +8,4 @@ example.c
 /test_t
 /test_time
 .nfs*
+.vscode
