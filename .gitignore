@@ -7,3 +7,4 @@ example.c
 *.o
 /test_t
 /test_time
+.nfs*

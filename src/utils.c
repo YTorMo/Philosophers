@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:27:05 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/07 12:27:16 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:17:34 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ unsigned long	ft_elapse_time(t_philo	*philos)
 
 	ret = ft_actual_time() - philos->init_time;
 	return (ret);
+}
+
+void	ft_print(t_philo *philo, char *text, int dead)
+{
+	pthread_mutex_lock(philo->print_locker);
+	if (dead != 2)
+		printf("%lums	%d	%s.\n", ft_elapse_time(philo), philo->id, text);
+	if (dead == 1 || dead == 2)
+		return ;
+	pthread_mutex_unlock(philo->print_locker);
 }
 
 int	ft_atoi(char *str)
@@ -53,37 +63,5 @@ int	ft_atoi(char *str)
 	}
 	return (s * n);
 }
-
-void	ft_is_dead(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (1)
-	{
-		if (ft_actual_time() - philo[i].last_meal >= philo->args->t_t_d)
-		{
-			printf("%lums %i died.\n", ft_elapse_time(&philo[i]), philo[i].id);
-			return ;
-		}
-		i = (i + 1) % philo->args->n_philos;
-		usleep(100);
-	}
-}
-
-//printf("%lums ultima comida de %i.\n", ft_actual_time() - philo[i].last_meal,
-//i + 1);
-/* int	ft_philos_ate(t_prg *prg)
-{
-	int		i;
-	t_philo	*philo;
-
-	philo = (t_philo *)prg->philo;
-	i = -1;
-	while (++i < prg->args->n_philos)
-	{
-		if (prg->args->n_t_m_e != philo[i].ate)
-			return (0);
-	}
-	return (1);
-} */
+//printf("%lums ultima comida de %i.\n", ft_actual_time()
+// - philo[i].last_meal, i + 1);

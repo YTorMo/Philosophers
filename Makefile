@@ -6,19 +6,18 @@
 #    By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 08:56:23 by ytoro-mo          #+#    #+#              #
-#    Updated: 2023/02/07 12:37:55 by ytoro-mo         ###   ########.fr        #
+#    Updated: 2023/02/08 14:30:56 by ytoro-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= philo
-CFLAGS	= -w
-#-Wall -Werror -Wextra
-USER	= ytoro-mo
+NAME	=	philo
+CFLAGS	=	-w -Wall -Werror -Wextra
+#USER	=	ytoro-mo
 
-HEADERS	= -I ./include
-SRCS	= src/init.c src/main.c src/utils.c
+HEADERS	=	-I ./include
+SRCS	=	src/init.c src/main.c src/utils.c
+OBJS	=	${SRCS:.c=.o}
 #SRCS	= $(shell find ./src -iname "*.c")
-OBJS	= ${SRCS:.c=.o}
 
 
 BOLD	= \033[1m
