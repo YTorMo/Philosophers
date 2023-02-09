@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:54:00 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/09 13:45:15 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:47:52 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,45 @@ int	main(int ac, char **av)
 		return (printf("Error initializing variables."));
 	p_id = fork();
 	if (!p_id)
+	{
 		ft_philos(prg->philo, -1);
+	}
 	else
 		ft_is_dead(prg->philo);
-	waitpid(p_id, NULL, 0);
 	ft_philo_deleter(prg);
 	return (0);
 }
 	//system("leaks -q philo");
 
-void	ft_philos_routine(void *p)
+void	ft_philos(t_philo	*philos, int i)
 {
-	t_philo	*philo;
+	if (++i < philos->args->n_philos)
+	{
+		philos->args->p_id[i] = fork();
+		if (!philos->args->p_id[i])
+			ft_philos_routine(&philos[i]);
+		else
+			ft_philos(philos, i);
+			i = -1;
+	}
+	waitpid(philos->args->p_id[i], 0, 0);
+}
 
-	philo = (t_philo *)p;
+void	ft_philos_routine(t_philo *philo)
+{
 	while (1)
 	{
-		pthread_mutex_lock(&philo->forks_locker[(philo->id) - 1]);
+		sem_wait(philo->args->sema);
 		ft_print(philo, "has taken a fork", 0);
-		pthread_mutex_lock(&philo->forks_locker[(philo->id)
-			% philo->args->n_philos]);
+		sem_wait(philo->args->sema);
 		ft_print(philo, "has taken a fork", 0);
 		ft_print(philo, "is eating", 0);
 		philo->last_meal = ft_actual_time();
 		usleep(philo->args->t_t_e * 1000);
-		pthread_mutex_unlock(&philo->forks_locker[(philo->id)
-			% philo->args->n_philos]);
-		pthread_mutex_unlock(&philo->forks_locker[(philo->id) - 1]);
-		if (philo->args->n_t_m_e != -1)
-			if (++philo->ate == philo->args->n_t_m_e)
-				break ;
+		sem_post(philo->args->sema);
+		sem_post(philo->args->sema);
+		if (++philo->ate == philo->args->n_t_m_e)
+			return ;
 		ft_print(philo, "is sleeping", 0);
 		usleep(philo->args->t_t_s * 1000);
 		ft_print(philo, "is thinking", 0);
@@ -64,23 +73,24 @@ void	ft_philos_routine(void *p)
 
 void	ft_is_dead(t_philo *philo)
 {
-/* 	int	i;
+	int	i;
 
 	i = 0;
 	while (1)
 	{
-		if (ft_end_meal(philo, i))
-			break ;
 		if (ft_actual_time() - philo[i].last_meal
 			>= (unsigned long)philo->args->t_t_d)
 		{
 			ft_print(&philo[i], "died", 1);
-			return ;
+			ft_kill(&philo[i]);
+			exit (1);
 		}
 		i = (i + 1) % philo->args->n_philos;
-	} */
+	}
 	printf("ESTE PAPU ES EL PROCESO PADRE.\n");
 }
+/* 		if (ft_end_meal(philo, i))
+			break ; */
 
 int	ft_end_meal(t_philo *philo, int i)
 {
@@ -100,19 +110,4 @@ int	ft_end_meal(t_philo *philo, int i)
 		return (1);
 	}
 	return (0);
-}
-
-void	ft_philos(t_philo	*philos, int i)
-{
-	int		p_id;
-
-	if (++i < philos->args->n_philos)
-	{
-		p_id = fork();
-		if (!p_id)
-			printf ("PROCESO HIJO:	%i.\n", i);
-		else
-			ft_philos(philos, i);
-	}
-	waitpid(p_id, NULL, 0);
 }

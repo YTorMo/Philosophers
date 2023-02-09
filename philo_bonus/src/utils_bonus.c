@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:27:05 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/08 16:55:06 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:35:00 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,19 @@ unsigned long	ft_elapse_time(t_philo	*philos)
 
 void	ft_print(t_philo *philo, char *text, int dead)
 {
-	pthread_mutex_lock(philo->print_locker);
 	if (dead != 2)
 		printf("%lums	%d	%s.\n", ft_elapse_time(philo), philo->id, text);
 	if (dead == 1 || dead == 2)
 		return ;
-	pthread_mutex_unlock(philo->print_locker);
+}
+
+void	ft_kill(t_philo *philos)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philos->args->n_philos)
+		kill(philos->args->p_id[i], SIGINT);
 }
 
 int	ft_atoi(char *str)
