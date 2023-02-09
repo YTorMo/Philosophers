@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:54:00 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/09 11:28:25 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:45:15 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,23 @@
 
 int	main(int ac, char **av)
 {
-	pthread_t		*thr;
-	t_prg			*prg;
-	int				i;
+	t_prg	*prg;
+	int		p_id;
 
 	if (ac < 5 || ac > 6)
-		return (printf("Error"));
+		return (printf("Error: incorrect number of variables."));
 	prg = malloc(sizeof(t_prg));
-	thr = malloc(sizeof(pthread_t) * ft_atoi(av[1]));
-	if (!prg || !thr)
+	if (!prg)
 		return (printf("Error allocating memory."));
 	if (ft_prg_init(prg, av))
 		return (printf("Error initializing variables."));
-	i = -1;
-	while (++i < prg->args->n_philos)
-	{
-		if (pthread_create(&thr[i], NULL, (void *)&ft_philos_routine,
-				(void *)&prg->philo[i]))
-			return (printf("Error creating threads."));
-		usleep(100);
-	}
-	ft_is_dead(prg->philo);
+	p_id = fork();
+	if (!p_id)
+		ft_philos(prg->philo, -1);
+	else
+		ft_is_dead(prg->philo);
+	waitpid(p_id, NULL, 0);
 	ft_philo_deleter(prg);
-	free(thr);
 	return (0);
 }
 	//system("leaks -q philo");
@@ -70,7 +64,7 @@ void	ft_philos_routine(void *p)
 
 void	ft_is_dead(t_philo *philo)
 {
-	int	i;
+/* 	int	i;
 
 	i = 0;
 	while (1)
@@ -84,7 +78,8 @@ void	ft_is_dead(t_philo *philo)
 			return ;
 		}
 		i = (i + 1) % philo->args->n_philos;
-	}
+	} */
+	printf("ESTE PAPU ES EL PROCESO PADRE.\n");
 }
 
 int	ft_end_meal(t_philo *philo, int i)
@@ -105,4 +100,19 @@ int	ft_end_meal(t_philo *philo, int i)
 		return (1);
 	}
 	return (0);
+}
+
+void	ft_philos(t_philo	*philos, int i)
+{
+	int		p_id;
+
+	if (++i < philos->args->n_philos)
+	{
+		p_id = fork();
+		if (!p_id)
+			printf ("PROCESO HIJO:	%i.\n", i);
+		else
+			ft_philos(philos, i);
+	}
+	waitpid(p_id, NULL, 0);
 }

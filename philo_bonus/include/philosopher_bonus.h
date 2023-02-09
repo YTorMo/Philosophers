@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:53:45 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/08 16:55:56 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:36:48 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ void			ft_is_dead(t_philo *philo);
 void			ft_philo_deleter(t_prg *p);
 void			ft_print(t_philo *philo, char *text, int dead);
 int				ft_end_meal(t_philo *philo, int i);
+void			ft_philos(t_philo	*philos, int i);
 
 #endif

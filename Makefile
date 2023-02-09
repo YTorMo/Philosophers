@@ -6,19 +6,19 @@
 #    By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 08:56:23 by ytoro-mo          #+#    #+#              #
-#    Updated: 2023/02/09 12:10:23 by ytoro-mo         ###   ########.fr        #
+#    Updated: 2023/02/09 13:13:35 by ytoro-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	philo/philo
 NAME_BONUS		=	philo_bonus/philo_bonus
-CFLAGS			=	-Wall -Werror -Wextra
+CFLAGS			=	-w -Wall -Werror -Wextra
 #USER			=	ytoro-mo
 
 HEADERS			=	philo/include/philosopher.h
 HEADERS_BONUS	=	philo_bonus/include/philosopher_bonus.h
 SRCS			=	philo/src/init.c philo/src/main.c philo/src/utils.c
-SRCS_BONUS		=	philo_bonus/src/init.c philo_bonus/src/main.c philo_bonus/src/utils.c
+SRCS_BONUS		=	philo_bonus/src/init_bonus.c philo_bonus/src/main_bonus.c philo_bonus/src/utils_bonus.c
 OBJS			=	${SRCS:.c=.o}
 OBJS_BONUS		=	${SRCS_BONUS:.c=.o}
 #SRCS	= $(shell find ./src -iname "*.c")
