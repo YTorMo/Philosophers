@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:54:00 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/08 14:34:46 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:28:38 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 	t_prg			*prg;
 	int				i;
 
-	if (ac < 5 && ac > 6)
+	if (ac < 5 || ac > 6)
 		return (printf("Error"));
 	prg = malloc(sizeof(t_prg));
 	thr = malloc(sizeof(pthread_t) * ft_atoi(av[1]));
@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 	i = -1;
 	while (++i < prg->args->n_philos)
 	{
-		if (pthread_create(&thr[i], NULL, &ft_philos_routine,
+		if (pthread_create(&thr[i], NULL, (void *)&ft_philos_routine,
 				(void *)&prg->philo[i]))
 			return (printf("Error creating threads."));
 		usleep(100);
@@ -76,7 +76,8 @@ void	ft_is_dead(t_philo *philo)
 	{
 		if (ft_end_meal(philo, i))
 			break ;
-		if (ft_actual_time() - philo[i].last_meal >= philo->args->t_t_d)
+		if (ft_actual_time() - philo[i].last_meal
+			>= (unsigned long)philo->args->t_t_d)
 		{
 			ft_print(&philo[i], "died", 1);
 			return ;

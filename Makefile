@@ -6,17 +6,21 @@
 #    By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 08:56:23 by ytoro-mo          #+#    #+#              #
-#    Updated: 2023/02/08 14:30:56 by ytoro-mo         ###   ########.fr        #
+#    Updated: 2023/02/09 12:10:23 by ytoro-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	philo
-CFLAGS	=	-w -Wall -Werror -Wextra
-#USER	=	ytoro-mo
+NAME			=	philo/philo
+NAME_BONUS		=	philo_bonus/philo_bonus
+CFLAGS			=	-Wall -Werror -Wextra
+#USER			=	ytoro-mo
 
-HEADERS	=	-I ./include
-SRCS	=	src/init.c src/main.c src/utils.c
-OBJS	=	${SRCS:.c=.o}
+HEADERS			=	philo/include/philosopher.h
+HEADERS_BONUS	=	philo_bonus/include/philosopher_bonus.h
+SRCS			=	philo/src/init.c philo/src/main.c philo/src/utils.c
+SRCS_BONUS		=	philo_bonus/src/init.c philo_bonus/src/main.c philo_bonus/src/utils.c
+OBJS			=	${SRCS:.c=.o}
+OBJS_BONUS		=	${SRCS_BONUS:.c=.o}
 #SRCS	= $(shell find ./src -iname "*.c")
 
 
@@ -26,18 +30,23 @@ RESET	= \033[0m
 
 all: $(NAME)
 
-%.o: %.c
-	@gcc $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "${GREEN}$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
+$(NAME): $(SRCS) $(OBJS) $(HEADERS)
+	@cc $(CFLAGS) $(SRCS) -o $(NAME)
 
-$(NAME): $(OBJS)
-	@gcc $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+%.o: %.c
+	@cc $(CFLAGS) -c $< -o $@ && printf "${GREEN}$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
+
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(HEADERS_BONUS) $(OBJS_BONUS) $(SRCS_BONUS)
+	@cc $(CFLAGS) $(SRCS_BONUS) -o $(NAME_BONUS)
 
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(NAME_BONUS)
 	
-re: clean all
+re: fclean all
 
 .PHONY: all, clean, fclean, re

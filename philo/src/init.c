@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:32:04 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/08 12:34:27 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/09 10:31:27 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	ft_prg_init(t_prg *prg, char **av)
 {
 	t_prg_args	*args;
 	t_philo		*philos;
-	int			i;
 
 	args = malloc(sizeof(t_prg_args));
 	if (!args)
@@ -28,12 +27,11 @@ int	ft_prg_init(t_prg *prg, char **av)
 		return (printf("Error init philos.\n"));
 	prg->philo = philos;
 	init_lockers(prg);
+	return (0);
 }
 
 void	ft_args_init(t_prg_args	*args, char **av)
 {
-	int	i;
-
 	args->n_philos = ft_atoi(av[1]);
 	args->t_t_d = ft_atoi(av[2]);
 	args->t_t_e = ft_atoi(av[3]);
