@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:27:05 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/08 13:17:34 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:55:04 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	ft_print(t_philo *philo, char *text, int dead)
 
 int	ft_atoi(char *str)
 {
-	int	n;
-	int	s;
+	long	n;
+	int		s;
 
 	s = 1;
 	n = 0;
@@ -61,7 +61,21 @@ int	ft_atoi(char *str)
 		n = (n * 10) + (*str - 48);
 		str++;
 	}
-	return (s * n);
+	if (n > INT32_MAX)
+		return (0);
+	return (s * (int)n);
 }
+
+int	ft_check_input(int ac, char **av)
+{
+	if (ac < 5 || ac > 6 || ft_atoi(av[1]) <= 0 || ft_atoi(av[2]) <= 0
+		|| ft_atoi(av[3]) <= 0 || ft_atoi(av[4]) <= 0)
+		return (printf("Error: icorrect input.\n"));
+	if (av[5] != NULL)
+		if (ft_atoi(av[5]) <= 0)
+			return (printf("Error: icorrect input.\n"));
+	return (0);
+}
+
 //printf("%lums ultima comida de %i.\n", ft_actual_time()
 // - philo[i].last_meal, i + 1);

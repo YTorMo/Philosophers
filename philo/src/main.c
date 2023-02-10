@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:54:00 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/09 13:15:20 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:53:00 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	main(int ac, char **av)
 	t_prg			*prg;
 	int				i;
 
-	if (ac < 5 || ac > 6)
-		return (printf("Error incorrect number of variables."));
+	if (ft_check_input(ac, av))
+		return (0);
 	prg = malloc(sizeof(t_prg));
 	thr = malloc(sizeof(pthread_t) * ft_atoi(av[1]));
 	if (!prg || !thr)
