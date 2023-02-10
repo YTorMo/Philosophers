@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:53:45 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/09 16:35:14 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:39:09 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ typedef struct s_prg_args
 	int				n_t_m_e;
 	unsigned long	elapse_time;
 	sem_t			*sema;
-	int				*p_id;
+	sem_t			*sema_print;
 }t_prg_args;
 
 typedef struct s_philo
 {
 	int				ate;
 	int				end_ate;
+	int				dead;
 	int				id;
 	t_prg_args		*args;
 	unsigned long	init_time;
@@ -52,17 +53,16 @@ typedef struct s_main_program
 
 int				ft_atoi(char *str);
 void			ft_args_init(t_prg_args	*args, char **av);
-void			init_lockers(t_prg *prg);
 void			ft_philos_init(t_philo *philos, t_prg_args	*args);
 unsigned long	ft_elapse_time(t_philo	*philos);
 unsigned long	ft_actual_time(void);
 void			ft_philos_routine(t_philo *philo);
 int				ft_prg_init(t_prg *prg, char **av);
-void			ft_is_dead(t_philo *philo);
+void			ft_is_dead(t_philo *philo, int *p_id);
 void			ft_philo_deleter(t_prg *p);
 void			ft_print(t_philo *philo, char *text, int dead);
-int				ft_end_meal(t_philo *philo, int i);
 void			ft_philos(t_philo	*philos, int i);
-void			ft_kill(t_philo *philos);
+int				ft_create_philos(t_philo	*philos, int	*p_id);
+void			ft_philo_is_end(void *p);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 08:56:23 by ytoro-mo          #+#    #+#              #
-#    Updated: 2023/02/09 13:13:35 by ytoro-mo         ###   ########.fr        #
+#    Updated: 2023/02/10 13:23:10 by ytoro-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS			=	-w -Wall -Werror -Wextra
 HEADERS			=	philo/include/philosopher.h
 HEADERS_BONUS	=	philo_bonus/include/philosopher_bonus.h
 SRCS			=	philo/src/init.c philo/src/main.c philo/src/utils.c
-SRCS_BONUS		=	philo_bonus/src/init_bonus.c philo_bonus/src/main_bonus.c philo_bonus/src/utils_bonus.c
+SRCS_BONUS		=	philo_bonus/src/init_bonus.c philo_bonus/src/main_bonus.c philo_bonus/src/utils_bonus.c philo_bonus/src/philos_bonus.c
 OBJS			=	${SRCS:.c=.o}
 OBJS_BONUS		=	${SRCS_BONUS:.c=.o}
 #SRCS	= $(shell find ./src -iname "*.c")

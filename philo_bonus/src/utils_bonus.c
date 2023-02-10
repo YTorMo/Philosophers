@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 10:27:05 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/09 16:35:00 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:41:43 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,12 @@ unsigned long	ft_elapse_time(t_philo	*philos)
 
 void	ft_print(t_philo *philo, char *text, int dead)
 {
+	sem_wait(philo->args->sema_print);
 	if (dead != 2)
 		printf("%lums	%d	%s.\n", ft_elapse_time(philo), philo->id, text);
 	if (dead == 1 || dead == 2)
 		return ;
-}
-
-void	ft_kill(t_philo *philos)
-{
-	int	i;
-
-	i = -1;
-	while (++i < philos->args->n_philos)
-		kill(philos->args->p_id[i], SIGINT);
+	sem_post(philo->args->sema_print);
 }
 
 int	ft_atoi(char *str)
@@ -70,5 +63,3 @@ int	ft_atoi(char *str)
 	}
 	return (s * n);
 }
-//printf("%lums ultima comida de %i.\n", ft_actual_time()
-// - philo[i].last_meal, i + 1);
