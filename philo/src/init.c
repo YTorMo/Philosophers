@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:32:04 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/09 10:31:27 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:35:55 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	ft_args_init(t_prg_args	*args, char **av)
 		args->n_t_m_e = ft_atoi(av[5]);
 	else
 		args->n_t_m_e = -1;
+	args->dead = 0;
+	args->end_ate = 0;
 }
 
 //No more data race. =D
@@ -71,7 +73,6 @@ void	ft_philos_init(t_philo *philos, t_prg_args *args,
 	while (++i < args->n_philos)
 	{
 		philos[i].ate = 0;
-		philos[i].end_ate = 0;
 		philos[i].id = i + 1;
 		philos[i].args = args;
 		philos[i].forks_locker = fork_locker;

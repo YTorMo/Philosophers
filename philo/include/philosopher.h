@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:53:45 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/10 15:52:31 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:35:24 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ typedef struct s_prg_args
 	int				t_t_e;
 	int				t_t_s;
 	int				n_t_m_e;
+	int				end_ate;
 	unsigned long	elapse_time;
+	int				dead;
 }t_prg_args;
 
 typedef struct s_philo
 {
 	int				ate;
-	int				end_ate;
 	int				id;
 	t_prg_args		*args;
 	unsigned long	init_time;
