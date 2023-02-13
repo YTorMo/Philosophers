@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:54:00 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/10 17:35:12 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:39:30 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,28 @@ void	ft_philos_routine(void *p)
 		ft_print(philo, "has taken a fork", 0);
 		ft_print(philo, "is eating", 0);
 		philo->last_meal = ft_actual_time();
-		usleep(philo->args->t_t_e * 1000);
+		ft_time_sleep(philo, philo->args->t_t_e);
 		pthread_mutex_unlock(&philo->forks_locker[(philo->id)
 			% philo->args->n_philos]);
 		pthread_mutex_unlock(&philo->forks_locker[(philo->id) - 1]);
 		if (++philo->ate != philo->args->n_t_m_e && !philo->args->dead)
 		{
 			ft_print(philo, "is sleeping", 0);
-			usleep(philo->args->t_t_s * 1000);
+			ft_time_sleep(philo, philo->args->t_t_s);
 			ft_print(philo, "is thinking", 0);
 		}
 		else if (philo->ate == philo->args->n_t_m_e)
 			philo->args->end_ate++;
 	}
+}
+
+void	ft_time_sleep(t_philo *p, int t_t)
+{
+	unsigned long	start;
+
+	start = ft_elapse_time(p);
+	while (ft_elapse_time(p) - start < (unsigned long)t_t)
+		usleep(50);
 }
 
 void	ft_is_dead(t_philo *philo)
