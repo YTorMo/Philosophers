@@ -6,13 +6,13 @@
 #    By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 08:56:23 by ytoro-mo          #+#    #+#              #
-#    Updated: 2023/02/10 13:23:10 by ytoro-mo         ###   ########.fr        #
+#    Updated: 2023/02/14 12:06:20 by ytoro-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	philo/philo
 NAME_BONUS		=	philo_bonus/philo_bonus
-CFLAGS			=	-w -Wall -Werror -Wextra
+CFLAGS			=	-Wall -Werror -Wextra
 #USER			=	ytoro-mo
 
 HEADERS			=	philo/include/philosopher.h
