@@ -6,7 +6,7 @@
 /*   By: ytoro-mo < ytoro-mo@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:54:00 by ytoro-mo          #+#    #+#             */
-/*   Updated: 2023/02/14 11:54:41 by ytoro-mo         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:36:03 by ytoro-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_philos_routine(void *p)
 	t_philo	*philo;
 
 	philo = (t_philo *)p;
-	while (philo->ate != philo->args->n_t_m_e && !philo->args->dead)
+	while (!philo->args->dead && philo->args->end_ate < philo->args->n_philos)
 	{
 		pthread_mutex_lock(&philo->forks_locker[(philo->id) - 1]);
 		ft_print(philo, "has taken a fork", 0);
@@ -58,14 +58,14 @@ void	ft_philos_routine(void *p)
 		pthread_mutex_unlock(&philo->forks_locker[(philo->id)
 			% philo->args->n_philos]);
 		pthread_mutex_unlock(&philo->forks_locker[(philo->id) - 1]);
-		if (++philo->ate != philo->args->n_t_m_e && !philo->args->dead)
+		if (++philo->ate == philo->args->n_t_m_e)
+			philo->args->end_ate++;
+		if (!philo->args->dead)
 		{
 			ft_print(philo, "is sleeping", 0);
 			ft_time_usleep(philo->args->t_t_s);
 			ft_print(philo, "is thinking", 0);
 		}
-		else if (philo->ate == philo->args->n_t_m_e)
-			philo->args->end_ate++;
 	}
 }
 
